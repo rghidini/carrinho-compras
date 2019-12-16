@@ -1,0 +1,48 @@
+# App config
+server:
+  port: 8191
+   
+datasource:
+  sompo:
+    jdbcUrl: jdbc:sqlserver://172.28.0.24;databaseName=SOMPO
+    username: Sompo2
+    password: Sompo123
+    driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+  yas:
+    jdbcUrl: jdbc:sqlserver://10.130.1.50;databaseName=YAS_ND
+    username: yas
+    password: Fujitsu01
+    driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+
+spring:
+  profiles:
+    active: prod
+  application: 
+    name: consulta-parcelas
+  mvc:
+    locale-resolver: fixed
+    locale: pt_BR
+  main:
+    allow-bean-definition-overriding: true
+  jpa:
+    show-sql: false
+    hibernate:
+      dialect: org.hibernate.dialect.SQLServer2012Dialect
+      ddl-auto: none
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      hibernate:
+        format_sql: true
+        temp:
+          use_jdbc_metadata_defaults: false
+  datasource:
+    url: jdbc:sqlserver://10.1.2.41\CORP;databaseName=CORPBDCENTRALMYS
+    username: YMGeraRelatoriosCorretor
+    password: YM@41t1m@relatorios
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    
+logging:
+ file: /u/dadosapp/logs/example-api/app.log       
+ level:
+   ROOT: INFO
