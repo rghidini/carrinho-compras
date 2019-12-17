@@ -1,16 +1,13 @@
 package com.altran.shoppingcart.exceptions;
 
-import java.time.format.DateTimeParseException;
-
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.client.HttpServerErrorException.GatewayTimeout;
 import org.springframework.web.context.request.async.AsyncRequestTimeoutException;
-
-import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -33,7 +30,7 @@ public class RestControllerHandler {
 		log.error(ex.getMessage(), ex);
 	}
 	
-	@ExceptionHandler({IllegalArgumentException.class, NumberFormatException.class, InvalidFormatException.class, DateTimeParseException.class})
+	@ExceptionHandler({IllegalArgumentException.class, MethodArgumentNotValidException.class})
 	@ResponseStatus(value = HttpStatus.BAD_REQUEST, reason = "Requisição inválida")
 	public void handleBadRequest(final Exception ex) {
 		log.error(ex.getMessage(), ex);

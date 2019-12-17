@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 import com.altran.shoppingcart.model.Usuario;
 
 @Repository
-public interface UsuarioRepository extends MongoRepository<Usuario, Long>{
+public interface UsuarioRepository extends MongoRepository<Usuario, String>{
 	List<Usuario> findAll();
 }

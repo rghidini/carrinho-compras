@@ -9,5 +9,5 @@ import com.altran.shoppingcart.model.Carrinho;
 
 @Repository
 public interface CarrinhoRepository extends MongoRepository<Carrinho, Long>{
-	List<Carrinho> findByIdUsuario(Long userId);
+	List<Carrinho> findByIdUsuario(String userId);
 }

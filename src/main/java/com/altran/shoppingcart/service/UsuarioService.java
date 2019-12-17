@@ -3,13 +3,15 @@ package com.altran.shoppingcart.service;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import com.altran.shoppingcart.exceptions.NoContentException;
 import com.altran.shoppingcart.model.Usuario;
+import com.altran.shoppingcart.model.vo.UsuarioVO;
 import com.altran.shoppingcart.repository.UsuarioRepository;
 import com.altran.shoppingcart.service.interfaces.IUsuarioService;
 
@@ -24,7 +26,7 @@ public class UsuarioService implements IUsuarioService{
 	}
 
 	@Override
-	public Usuario getUsuarioById(Long id) {
+	public Usuario getUsuarioById(String id) {
 		Usuario user;
 		Optional<Usuario> findUser = repository.findById(id);
 		if(!findUser.isPresent()) {
@@ -36,20 +38,31 @@ public class UsuarioService implements IUsuarioService{
 
 	@Override
 	public List<Usuario> getAll() {
-		return Optional.ofNullable(repository.findAll())
-				.orElseThrow(() -> new NoContentException(""))
-				.stream()
-				.filter(Objects::nonNull)
-				.collect(Collectors.toList());
+		List<Usuario> userList = repository.findAll();
+		if(CollectionUtils.isEmpty(userList)) {
+			throw new NoContentException("");
+		}
+		return userList;
 	}
 
 	@Override
-	public Usuario createUser(Usuario user) {
-		return repository.save(user);
+	public Usuario createUser(UsuarioVO user) {
+		Usuario usuario = new Usuario();
+		if(repository.findById(user.getId()).isPresent()){
+			throw new DuplicateKeyException("");
+		}
+		usuario.setId(user.getId());
+		usuario.setEmail(user.getEmail());
+		usuario.setNome(user.getNome());
+		return repository.save(usuario);
 	}
 
 	@Override
-	public void deleteUser(Long id) {
+	public void deleteUser(String id) {
+		Usuario usuario = this.getUsuarioById(id);
+		if(Objects.isNull(usuario)) {
+			throw new NoContentException("");
+		}
 		repository.deleteById(id);
 	}
 

@@ -1,15 +1,15 @@
 package com.altran.shoppingcart.service;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import com.altran.shoppingcart.exceptions.NoContentException;
 import com.altran.shoppingcart.model.Item;
+import com.altran.shoppingcart.model.vo.ItemVO;
 import com.altran.shoppingcart.repository.ItemRepository;
 import com.altran.shoppingcart.service.interfaces.IItemService;
 
@@ -17,19 +17,21 @@ import com.altran.shoppingcart.service.interfaces.IItemService;
 public class ItemService implements IItemService{
 
 	private ItemRepository repository;
+	private SequenceGeneratorService sequence;
 
 	@Autowired
-	private ItemService(ItemRepository repository) {
+	private ItemService(ItemRepository repository, SequenceGeneratorService sequence) {
 		this.repository = repository;
+		this.sequence = sequence;
 	}
 
 	@Override
 	public List<Item> getAll() {
-		return Optional.ofNullable(repository.findAll())
-				.orElseThrow(() -> new NoContentException(""))
-				.stream()
-				.filter(Objects::nonNull)
-				.collect(Collectors.toList());
+		List<Item> itemList = repository.findAll();
+		if(CollectionUtils.isEmpty(itemList)) {
+			throw new NoContentException("");
+		}
+		return itemList;
 	}
 
 	@Override
@@ -44,7 +46,11 @@ public class ItemService implements IItemService{
 	}
 
 	@Override
-	public Item createItem(Item item) {
+	public Item createItem(ItemVO itemVO) {
+		Item item = new Item();
+		item.setId(sequence.generateSequence(Item.SEQUENCE_NAME));
+		item.setNome(itemVO.getNome());
+		item.setValor(itemVO.getValor());
 		return repository.save(item);
 	}
 

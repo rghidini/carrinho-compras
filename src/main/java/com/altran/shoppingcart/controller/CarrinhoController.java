@@ -2,8 +2,9 @@ package com.altran.shoppingcart.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,10 +13,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.altran.shoppingcart.model.Carrinho;
+import com.altran.shoppingcart.model.vo.CarrinhoVO;
 import com.altran.shoppingcart.service.interfaces.ICarrinhoService;
 
 import io.swagger.annotations.Api;
@@ -49,9 +50,8 @@ public class CarrinhoController {
 			@ApiResponse(code = 504, message = "Tempo limite da requisição excedido")
 			})
 	@GetMapping(path = {"/{id}"})
-	@ResponseStatus(value = HttpStatus.OK, reason = "OK")
 	public List<Carrinho> buscarCarrinhoPorUsuario(
-			@ApiParam(name = "id", value = "Id do usuario", required = true, example = "1")@PathVariable Long id){
+			@ApiParam(name = "id", value = "Id do usuario", required = true, example = "teste")@PathVariable String id){
 		return service.getCarrinhoByUserId(id);
 	}
 	
@@ -67,8 +67,7 @@ public class CarrinhoController {
 			@ApiResponse(code = 504, message = "Tempo limite da requisição excedido")
 			})
 	@PostMapping(path = {"/"})
-	@ResponseStatus(value = HttpStatus.CREATED, reason = "Criado com sucesso")
-	public List<Carrinho> createCart(@RequestBody List<Carrinho> carrinho){
+	public Carrinho createCart(@Valid @RequestBody CarrinhoVO carrinho){
 		return service.createCart(carrinho);
 	}
 	
@@ -84,9 +83,8 @@ public class CarrinhoController {
 			@ApiResponse(code = 504, message = "Tempo limite da requisição excedido")
 			})
 	@PutMapping(path = {"/"})
-	@ResponseStatus(value = HttpStatus.OK, reason = "OK")
-	public List<Carrinho> updateCart(@RequestBody List<Carrinho> carrinho){
+	public Carrinho updateCart(@Valid @RequestBody Carrinho carrinho){
 		return service.updateCart(carrinho);
 	}
-
+	
 }

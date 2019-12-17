@@ -26,7 +26,7 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-            .title("SHOPPING CART")
+            .title("CARRINHO DE COMPRAS")
             .description("Mapeamento dos Endpoints do projeto")
             .version("V-1.0.0")
             .termsOfServiceUrl("http://terms-of-services.url")

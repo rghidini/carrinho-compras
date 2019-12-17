@@ -2,8 +2,9 @@ package com.altran.shoppingcart.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,10 +14,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.altran.shoppingcart.model.Item;
+import com.altran.shoppingcart.model.vo.ItemVO;
 import com.altran.shoppingcart.service.interfaces.IItemService;
 
 import io.swagger.annotations.Api;
@@ -50,7 +51,6 @@ public class ItemController {
 			@ApiResponse(code = 504, message = "Tempo limite da requisição excedido")
 			})
 	@GetMapping(path = {"/{id}"})
-	@ResponseStatus(value = HttpStatus.OK, reason = "OK")
 	public Item buscarItemPorId(
 			@ApiParam(name = "id", value = "Id do item", required = true, example = "1")@PathVariable Long id){
 		return service.getItemById(id);
@@ -68,7 +68,6 @@ public class ItemController {
 			@ApiResponse(code = 504, message = "Tempo limite da requisição excedido")
 			})
 	@GetMapping(path = {"/"})
-	@ResponseStatus(value = HttpStatus.OK, reason = "OK")
 	public List<Item> buscarTodosItens(){
 		return service.getAll();
 	}
@@ -85,8 +84,7 @@ public class ItemController {
 			@ApiResponse(code = 504, message = "Tempo limite da requisição excedido")
 			})
 	@PostMapping(path = {"/"})
-	@ResponseStatus(value = HttpStatus.CREATED, reason = "Criado com sucesso")
-	public Item criarItem(@RequestBody Item item){
+	public Item criarItem(@Valid @RequestBody ItemVO item){
 		return service.createItem(item);
 	}
 	
@@ -102,8 +100,7 @@ public class ItemController {
 			@ApiResponse(code = 504, message = "Tempo limite da requisição excedido")
 			})
 	@PutMapping(path = {"/"})
-	@ResponseStatus(value = HttpStatus.OK, reason = "OK")
-	public Item atualizarItem(@RequestBody Item item){
+	public Item atualizarItem(@Valid @RequestBody Item item){
 		return service.updateItem(item);
 	}
 	
@@ -119,7 +116,6 @@ public class ItemController {
 			@ApiResponse(code = 504, message = "Tempo limite da requisição excedido")
 			})
 	@DeleteMapping(path = {"/{id}"})
-	@ResponseStatus(value = HttpStatus.OK, reason = "OK")
 	public void apagarItem(
 			@ApiParam(name = "id", value = "Id do item", required = true, example = "1")@PathVariable Long id){
 		service.deleteItem(id);

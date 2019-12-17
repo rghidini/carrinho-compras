@@ -1,4 +1,4 @@
-package br.com.sompo;
+package com.altran.shoppingcart;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
@@ -7,13 +7,13 @@ import junit.framework.TestSuite;
 /**
  * Unit test for simple App.
  */
-public class ExampleApplicationTests extends TestCase {
+public class ShoppingCartApplicationTests extends TestCase {
 	/**
 	 * Create the test case
 	 *
 	 * @param testName name of the test case
 	 */
-	public ExampleApplicationTests(String testName) {
+	public ShoppingCartApplicationTests(String testName) {
 		super(testName);
 	}
 
@@ -21,7 +21,7 @@ public class ExampleApplicationTests extends TestCase {
 	 * @return the suite of tests being tested
 	 */
 	public static Test suite() {
-		return new TestSuite(ExampleApplicationTests.class);
+		return new TestSuite(ShoppingCartApplicationTests.class);
 	}
 
 	/**

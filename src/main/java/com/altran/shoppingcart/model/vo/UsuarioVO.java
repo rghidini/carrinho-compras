@@ -1,12 +1,9 @@
-package com.altran.shoppingcart.model;
+package com.altran.shoppingcart.model.vo;
 
 import java.io.Serializable;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -23,12 +20,10 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(Include.NON_NULL)
-@Document(collection = "usuario")
-public class Usuario implements Serializable{
+public class UsuarioVO implements Serializable{
 
 	private static final long serialVersionUID = 1L;
-
-	@Id
+	
 	@NotBlank(message = "Id não pode estar em branco")
 	private String id;
 	
