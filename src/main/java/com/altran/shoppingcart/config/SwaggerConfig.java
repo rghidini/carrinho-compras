@@ -1,4 +1,4 @@
-package br.com.sompo.config;
+package com.altran.shoppingcart.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,20 +15,18 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class SwaggerConfig {
 	
-	//TODO classe de configuracao do swagger do projeto
-	
 	@Bean
     public Docket api(){
         return new Docket(DocumentationType.SWAGGER_2)
             .select()
-            .apis(RequestHandlerSelectors.basePackage("br.com.sompo.example.controller")) //TODO indicar o nome do pacote das suas controllers 
+            .apis(RequestHandlerSelectors.basePackage("com.altran.shoppingcart.controller")) 
             .paths(PathSelectors.any())
             .build().apiInfo(apiInfo());
     }
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-            .title("EXAMPLE")
+            .title("SHOPPING CART")
             .description("Mapeamento dos Endpoints do projeto")
             .version("V-1.0.0")
             .termsOfServiceUrl("http://terms-of-services.url")

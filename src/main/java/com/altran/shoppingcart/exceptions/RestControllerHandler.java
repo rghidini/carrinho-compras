@@ -1,4 +1,4 @@
-package br.com.sompo.exceptions;
+package com.altran.shoppingcart.exceptions;
 
 import java.time.format.DateTimeParseException;
 
@@ -19,19 +19,13 @@ import lombok.extern.slf4j.Slf4j;
 @RestControllerAdvice
 public class RestControllerHandler {
 	
-	//TODO adicionar as classes de exception do seu projeto de acordo com o codigo HTTP que deve ser retornado pelo Handler
-	
 	@ExceptionHandler({})
 	@ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "Não encontrado")
-	public void handleNotFound(final Exception ex) {
-		log.error(ex.getMessage(), ex);
-	} 
+	public void handleNotFound(final Exception ex) {} 
 	
 	@ExceptionHandler({NoContentException.class})
 	@ResponseStatus(value = HttpStatus.NO_CONTENT, reason = "Não há conteúdo para enviar para esta solicitação")
-	public void handleNoContent(final Exception ex) {
-		log.error(ex.getMessage(), ex);
-	} 
+	public void handleNoContent(final Exception ex) {} 
 	
 	@ExceptionHandler({NullPointerException.class, DuplicateKeyException.class, IllegalStateException.class})
 	@ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR, reason = "Erro interno no servidor")

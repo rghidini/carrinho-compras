@@ -1,4 +1,4 @@
-package br.com.sompo.exceptions;
+package com.altran.shoppingcart.exceptions;
 
 public class NoContentException extends RuntimeException{
 

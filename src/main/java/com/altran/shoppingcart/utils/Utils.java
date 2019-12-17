@@ -1,4 +1,4 @@
-package br.com.sompo.utils;
+package com.altran.shoppingcart.utils;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
