@@ -1,0 +1,41 @@
+<form [formGroup]="registerForm" (ngSubmit) = "carregaLista()">
+    <div class="form-group">
+        <h3>Buscar compras por ID usuário</h3>
+        <label>Id do Usuario</label>
+        <input type="text" formControlName="idUsuario" class="form-control"
+            [ngClass]="{ 'is-invalid': submitted &amp;&amp; registerForm.controls.idUsuario.errors }" />
+        <div *ngIf="ativado &amp;&amp; registerForm.controls.idUsuario.errors" class="text-danger">
+            <div *ngIf="registerForm.controls.idUsuario.errors.required">Id do usuario não pode estar
+                vazio</div>
+        </div>
+    </div>
+    <input class="btn btn-primary" type="submit" value="Pesquisar">
+</form>
+<div class="table-responsive" *ngFor="let carrinho of listCarrinhos">
+    <fieldset>
+        <legend>Itens Comprados</legend>
+        <table class="table table-hover table-dark">
+            <thead>
+                <tr>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Valor</th>
+                    <th scope="col">Quantidade</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of carrinho.itens">
+                    <th scope="row">{{item.nome}}</th>
+                    <td>{{item.valor | currency:'EUR':'symbol':'2.2-2'}}</td>
+                    <td>{{item.quantidade}}</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th scope="row">Valor Total</th>
+                    <td>{{carrinho.valorTotal | currency:'EUR':'symbol':'2.2-2'}}</td>
+                    <td></td>
+                </tr>
+            </tfoot>
+        </table>
+    </fieldset>
+</div>

@@ -1,0 +1,51 @@
+<div>
+  <div class="alert alert-danger" role="alert" *ngIf="ativado && mensagem != null">
+    {{mensagem}}
+  </div>
+  <form [formGroup]="registerForm" (ngSubmit)="submitForm()">
+    <div class="form-group">
+      <label>Id do Usuário</label>
+      <input type="text" formControlName="id" class="form-control" [ngClass]="{ 'is-invalid': submitted &amp;&amp; registerForm.controls.id.errors }">
+      <div *ngIf="ativado &amp;&amp; registerForm.controls.id.errors" class="text-danger">
+          <div *ngIf="registerForm.controls.id.errors.required">Id não pode estar vazio</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Nome do Usuário</label>
+      <input type="text" formControlName="nome" class="form-control" [ngClass]="{ 'is-invalid': submitted &amp;&amp; registerForm.controls.nome.errors }">
+      <div *ngIf="ativado &amp;&amp; registerForm.controls.nome.errors" class="text-danger">
+          <div *ngIf="registerForm.controls.nome.errors.required">Nome não pode estar vazio</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="userEmail">E-mail do Usuário</label>
+      <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted &amp;&amp; registerForm.controls.email.errors }" />
+      <div *ngIf="ativado &amp;&amp; registerForm.controls.email.errors" class="text-danger">
+          <div *ngIf="registerForm.controls.email.errors.required">Email não pode estar vazio</div>
+          <div *ngIf="registerForm.controls.email.errors.email">Email inválido</div>
+      </div>
+    </div>
+    <input class="btn btn-primary" type="submit" value="Submit">
+  </form>
+</div>
+<br>
+<div class="table-responsive">
+  <table class="table table-hover table-dark">
+    <thead>
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Nome</th>
+        <th scope="col">E-mail</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of listUsers">
+        <th scope="row">{{user.id}}</th>
+        <td>{{user.nome}}</td>
+        <td>{{user.email}}</td>
+        <td><button type="button" (click)="editUser(user)" class="btn btn-warning custom-width">Edit</button></td>
+        <td><button type="button" (click)="removeUser(user.id)" class="btn btn-danger custom-width">Remove</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

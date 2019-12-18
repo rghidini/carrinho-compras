@@ -1,0 +1,25 @@
+# App config
+server:
+  port: 8191
+   
+spring:
+  profiles:
+    active: prod
+  application: 
+    name: carrinho-compras
+  mvc:
+    locale-resolver: fixed
+    locale: pt_BR
+  main:
+    allow-bean-definition-overriding: true
+  data:
+  # MONGODB
+    mongodb:
+      database: ShoppingCart 
+      host: localhost
+      port: 27017
+    
+logging:
+ file: /logs/carrinho-compras-api/app.log       
+ level:
+   ROOT: INFO
