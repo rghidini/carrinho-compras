@@ -115,7 +115,7 @@ public class ItemController {
 			@ApiResponse(code = 500, message = "Erro interno no servidor"),
 			@ApiResponse(code = 504, message = "Tempo limite da requisição excedido")
 			})
-	@DeleteMapping(path = {"/{id}"})
+	@DeleteMapping(path = {"/{id}"}) 
 	public void apagarItem(
 			@ApiParam(name = "id", value = "Id do item", required = true, example = "1")@PathVariable Long id){
 		service.deleteItem(id);

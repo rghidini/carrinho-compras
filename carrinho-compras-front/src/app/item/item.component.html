@@ -1,0 +1,41 @@
+<div>
+  <form [formGroup]="registerForm" (ngSubmit)="submitForm()">
+    <div class="form-group">
+      <label>Nome do Item</label>
+      <input type="text" formControlName="nome" class="form-control" [ngClass]="{ 'is-invalid': submitted &amp;&amp; registerForm.controls.nome.errors }">
+      <div *ngIf="ativado &amp;&amp; registerForm.controls.nome.errors" class="text-danger">
+          <div *ngIf="registerForm.controls.nome.errors.required">Nome não pode estar vazio</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="userEmail">Valor do Item</label>
+      <input type="text" formControlName="valor" class="form-control" [ngClass]="{ 'is-invalid': submitted &amp;&amp; registerForm.controls.valor.errors }" />
+      <div *ngIf="ativado &amp;&amp; registerForm.controls.valor.errors" class="text-danger">
+          <div *ngIf="registerForm.controls.valor.errors.required">Valor não pode estar vazio</div>
+          <div *ngIf="registerForm.controls.valor.errors.min">Valor inválido</div>
+      </div>
+    </div>
+    <input class="btn btn-primary" type="submit" value="Submit">
+  </form>
+</div>
+<br>
+<div class="table-responsive">
+  <table class="table table-hover table-dark">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Nome</th>
+        <th scope="col">Valor</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of listItens">
+        <th scope="row">{{item.id}}</th>
+        <td>{{item.nome}}</td>
+        <td>{{item.valor | currency:'EUR':'symbol':'2.2-2'}}</td>
+        <td><button type="button" (click)="editItem(item)" class="btn btn-warning custom-width">Edit</button></td>
+        <td><button type="button" (click)="removeItem(item.id)" class="btn btn-danger custom-width">Remove</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

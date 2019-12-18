@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import com.altran.shoppingcart.exceptions.NoContentException;
 import com.altran.shoppingcart.model.Carrinho;
@@ -38,7 +39,7 @@ public class CarrinhoService implements ICarrinhoService{
 		List<Carrinho> listCarrinho = new ArrayList<>();
 		
 		Optional.ofNullable(repository.findByIdUsuario(userId))
-		.orElseThrow(() -> new NoContentException(""))
+		.orElseGet(Collections::emptyList)
 		.stream()
 		.filter(Objects::nonNull)
 		.forEach(c -> {
@@ -55,11 +56,15 @@ public class CarrinhoService implements ICarrinhoService{
 			listCarrinho.add(carrinho);
 		});
 		
+		if(CollectionUtils.isEmpty(listCarrinho)) {
+			throw new NoContentException("");
+		}
+		
 		return listCarrinho;
 	}
 
 	@Override
-	public Carrinho createCart(CarrinhoVO carrinho) {
+	public Carrinho fecharCompras(CarrinhoVO carrinho) {
 		Carrinho car = new Carrinho();
 		usuarioService.getUsuarioById(carrinho.getIdUsuario());
 		car.setId(sequence.generateSequence(Carrinho.SEQUENCE_NAME));

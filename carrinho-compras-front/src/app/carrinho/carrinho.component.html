@@ -1,0 +1,76 @@
+<form>
+    <div>
+        <form [formGroup]="registerForm">
+            <div class="form-group">
+                <label>Nome do Usuario</label>
+                <select formControlName="idUsuario" class="form-control" (change)="getUser($event)">
+                    <option disabled>Selecione um usuario</option>
+                    <option *ngFor="let usuario of listUsers" [value]="usuario.id">{{usuario.nome}}</option>
+                </select>
+                <div *ngIf="ativado &amp;&amp; registerForm.controls.idUsuario.errors" class="text-danger">
+                    <div *ngIf="registerForm.controls.idUsuario.errors.required">Nome do usuário não pode estar
+                        vazio
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Nome do Item</label>
+                <select formControlName="itensNome" class="form-control" (change)="getItem($event)">
+                    <option disabled>Selecione um item</option>
+                    <option *ngFor="let item of listItens" [value]="item.id">{{item.nome}}</option>
+                </select>
+                <div *ngIf="ativado &amp;&amp; registerForm.controls.itensNome.errors" class="text-danger">
+                    <div *ngIf="registerForm.controls.itensNome.errors.required">Nome do item não pode estar vazio</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="userEmail">Valor do Item</label>
+                <label>{{item.valor | currency:'EUR':'symbol':'2.2-2'}}</label>
+            </div>
+            <div class="form-group">
+                <label>Quantidade do Item</label>
+                <input type="text" formControlName="itensQuantidade" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted &amp;&amp; registerForm.controls.itensQuantidade.errors }" />
+                <div *ngIf="ativado &amp;&amp; registerForm.controls.itensQuantidade.errors" class="text-danger">
+                    <div *ngIf="registerForm.controls.itensQuantidade.errors.required">Quantidade do item não pode estar
+                        vazio</div>
+                    <div *ngIf="registerForm.controls.itensQuantidade.errors.min">Quantidade inválida</div>
+                </div>
+            </div>
+            <button type="button" (click)="adicionar()" class="btn btn-success custom-width">Adicionar</button>
+        </form>
+    </div>
+    <br>
+    <div class="table-responsive">
+        <table class="table table-hover table-dark">
+            <thead>
+                <tr>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Valor</th>
+                    <th scope="col">Quantidade</th>
+                    <th scope="col">Valor Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of listItensCarrinho">
+                    <th scope="row">{{item.nome}}</th>
+                    <td>{{item.valor | currency:'EUR':'symbol':'2.2-2'}}</td>
+                    <td>{{item.quantidade}}</td>
+                    <td>{{item.valor * item.quantidade | currency:'EUR':'symbol':'2.2-2'}}</td>
+                    <td><button type="button" (click)="removeItem(item)"
+                            class="btn btn-danger custom-width">Remove</button>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th scope="row" colspan="3">Valor Total</th>
+                    <td>{{carrinho.valorTotal | currency:'EUR':'symbol':'2.2-2'}}</td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <button type="button" (click)="submitForm()"
+                            class="btn btn-primary custom-width">Fechar Carrinho</button>
+</form>

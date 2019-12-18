@@ -9,7 +9,7 @@ import com.altran.shoppingcart.model.vo.CarrinhoVO;
 public interface ICarrinhoService {
 	
 	List<Carrinho> getCarrinhoByUserId(String id);
-	Carrinho createCart(CarrinhoVO carrinho);
+	Carrinho fecharCompras(CarrinhoVO carrinho);
 	Carrinho updateCart(Carrinho carrinho);
 	
 }

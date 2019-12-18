@@ -21,6 +21,8 @@
  - Navegue até a pasta bin e execute o arquivo **mongod**
  - Abra o projeto java
  - Execute a classe `ShoppingCartApplication`
+ - Abra o projeto Angular e baixe as dependencias com o comando `npm install`
+ - Execute o projeto com o comando `ng serve` 
  
 ----------
 
@@ -30,4 +32,4 @@
 ----------
 
 ## URL de acesso as telas do projeto
- - **http://localhost:8191/swagger-ui.html#/** 
+ - **http://localhost:4200/** 

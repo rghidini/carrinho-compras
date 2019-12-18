@@ -67,8 +67,8 @@ public class CarrinhoController {
 			@ApiResponse(code = 504, message = "Tempo limite da requisição excedido")
 			})
 	@PostMapping(path = {"/"})
-	public Carrinho createCart(@Valid @RequestBody CarrinhoVO carrinho){
-		return service.createCart(carrinho);
+	public Carrinho fecharCompras(@Valid @RequestBody CarrinhoVO carrinho){
+		return service.fecharCompras(carrinho);
 	}
 	
 	@ApiOperation(value = "Atualizar um carrinho existente", response = Carrinho.class)
